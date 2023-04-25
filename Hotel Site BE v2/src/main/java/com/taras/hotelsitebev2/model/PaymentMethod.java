@@ -16,9 +16,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "payment_method")
+@Table(name = "payment_methods")
 public class PaymentMethod extends BaseEntity {
 
     @OneToMany(mappedBy = "paymentMethod")
-    private Set<PaymentMethod> paymentMethods = new HashSet<>();
+    private Set<Booking> bookings = new HashSet<>();
 }

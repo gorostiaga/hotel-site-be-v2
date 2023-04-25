@@ -1,5 +1,6 @@
 package com.taras.hotelsitebev2.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +12,9 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name="room_image")
+@Table(name="room_images")
 public class RoomImage extends BaseEntity {
 
     @Column(name = "file_path")
@@ -21,9 +23,4 @@ public class RoomImage extends BaseEntity {
     @Column(name="description")
     private String description;
 
-    public RoomImage(Long id, String filePath, String description) {
-        super(id);
-        this.filePath = filePath;
-        this.description = description;
-    }
 }

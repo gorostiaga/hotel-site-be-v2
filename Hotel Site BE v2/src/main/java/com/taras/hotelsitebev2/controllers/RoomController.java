@@ -1,13 +1,22 @@
 package com.taras.hotelsitebev2.controllers;
 
-import com.taras.hotelsitebev2.services.RoomService;
+import com.taras.hotelsitebev2.dtos.roomdtos.RequestBodyRoomDto;
+import com.taras.hotelsitebev2.services.ServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 //TODO set the required annotation for mapping and controller
-public class RoomController {
+@CrossOrigin
+@RequestMapping("/rooms")
+@RestController
+public class RoomController extends ControllerInterface<RequestBodyRoomDto>{
 
-    private final RoomService roomService;
-    public RoomController(RoomService roomService) {
-        this.roomService = roomService;
+    @Autowired
+    public RoomController(@Qualifier("roomService") ServiceInterface serviceInterface) {
+        this.serviceInterface = serviceInterface;
     }
 
 

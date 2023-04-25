@@ -16,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "room_type")
+@Table(name = "room_types")
 public class RoomType extends BaseEntity {
 
     @Column(name="name")
