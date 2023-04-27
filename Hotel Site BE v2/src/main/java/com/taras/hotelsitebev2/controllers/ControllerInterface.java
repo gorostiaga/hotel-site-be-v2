@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 public abstract class ControllerInterface<T extends DtoInterface> {
 
     ServiceInterface serviceInterface;
@@ -15,23 +18,24 @@ public abstract class ControllerInterface<T extends DtoInterface> {
 
     //get list
     @GetMapping
-    public ResponseEntity<DtoInterface> getList() {
+    public ResponseEntity<Map<String, List<DtoInterface>>> getList() {
+
         return ResponseEntity.ok(serviceInterface.getList());
     }
 
     //get by id
     @GetMapping(value = "/{id}")
-    public ResponseEntity<DtoInterface> getById(@PathVariable("id") Integer id) {
+    public ResponseEntity<Map<String, DtoInterface>> getById(@PathVariable("id") Integer id) {
 
         try {
-            dtoInterface = serviceInterface.getById(id);
+            return ResponseEntity.ok(serviceInterface.getById(id));
         } catch (NotFoundException e) {
             throw e;
         }
 //        if (dtoInterface == null) {
 //            throw new NotFoundException("Item no se encuentra - " + id);
 //        }
-        return ResponseEntity.ok(dtoInterface);
+
     }
 
     //create a new
@@ -47,6 +51,7 @@ public abstract class ControllerInterface<T extends DtoInterface> {
         try {
             serviceInterface.update(id, dto);
         } catch (NotFoundException e) {
+            //TODO fix this warming
             throw e;
         }
         return new ResponseEntity<DtoInterface>(new ApiResponse(true, "Room updated"), HttpStatus.OK);
@@ -58,6 +63,7 @@ public abstract class ControllerInterface<T extends DtoInterface> {
         try {
             serviceInterface.delete(id);
         } catch (IllegalArgumentException e) {
+            //TODO fix this warming
             throw e;
         }
         return new ResponseEntity<DtoInterface>(new ApiResponse(true, "Room deleted"), HttpStatus.OK);

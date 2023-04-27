@@ -5,6 +5,8 @@ import com.taras.hotelsitebev2.model.RoomType;
 import com.taras.hotelsitebev2.repos.RoomTypeRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -17,12 +19,12 @@ public class RoomTypeService implements ServiceInterface {
     }
 
     @Override
-    public DtoInterface getList() {
+    public Map<String, List<DtoInterface>> getList() {
         return null;
     }
 
     @Override
-    public DtoInterface getById(Integer id) {
+    public Map<String, DtoInterface> getById(Integer id) {
         return null;
     }
 

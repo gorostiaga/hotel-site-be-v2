@@ -1,17 +1,25 @@
 package com.taras.hotelsitebev2.dtos.roomdtos;
 
 import com.taras.hotelsitebev2.dtos.DtoInterface;
-import com.taras.hotelsitebev2.model.Room;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoomDto implements DtoInterface {
+public class RoomDto implements DtoInterface, Serializable {
 
-    private Room room;
+    private Integer id;
+    private String name;
+    private Integer beds;
+    private Integer minPeople;
+    private Integer maxPeople;
+    private Double priceNightPerson;
+    private String masterImage;
+
 }
