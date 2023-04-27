@@ -1,9 +1,9 @@
 package com.taras.hotelsitebev2.repos;
 
-import com.taras.hotelsitebev2.model.Room;
+import com.taras.hotelsitebev2.model.Booking;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoomRepo extends CrudRepository<Room, Integer> {
+public interface BookingRepo extends CrudRepository<Booking, Integer> {
 }

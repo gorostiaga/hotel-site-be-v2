@@ -1,11 +1,13 @@
-package com.taras.hotelsitebev2.model;
+package com.taras.hotelsitebev2.dtos.customer;
 
+import com.taras.hotelsitebev2.dtos.DtoInterface;
+import com.taras.hotelsitebev2.model.Booking;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,29 +15,13 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "customers")
-public class Customer {
+public class CustomerWithBookingsDto implements DtoInterface, Serializable {
 
-    @Id
     private String idCustomer;
-
-    @Column(name = "first_name")
     private String firstName;
-
-    @Column(name = "last_name")
     private String lastName;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "phone")
     private Integer phone;
-
-    @Column(name = "origin_city")
     private String originCity;
-
-    @OneToMany(mappedBy = "customer")
-    //TODO see if it is needed an earger fetch
     private Set<Booking> bookings = new HashSet<>();
 }
