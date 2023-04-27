@@ -1,5 +1,6 @@
 package com.taras.hotelsitebev2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,6 @@ public class RoomType extends BaseEntity {
     private Double pricePerNight;
 
     @OneToMany(mappedBy = "roomType")
+    @JsonIgnore
     private Set<Room> rooms;
 }
