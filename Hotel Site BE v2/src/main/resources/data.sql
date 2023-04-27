@@ -35,3 +35,7 @@ INSERT INTO `PUBLIC`.`room_images` (`file_path`, `description`, `room_id`)
 VALUES ('https://raw.githubusercontent.com/gorostiaga/Images/main/finca%20web/cabin_3/cabin_3_3.jpg', 'cabin_3_3','3');
 INSERT INTO `PUBLIC`.`room_images` (`file_path`, `description`, `room_id`)
 VALUES ('https://raw.githubusercontent.com/gorostiaga/Images/main/finca%20web/cabin_3/cabin_3_4.jpg', 'cabin_3_4','3');
+
+-- For PaymentMethod
+INSERT INTO `PUBLIC`.`payment_methods` (`id`, `payment_type`)
+VALUES ('1', 'QR');
