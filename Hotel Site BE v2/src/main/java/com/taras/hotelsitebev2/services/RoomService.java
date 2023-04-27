@@ -1,76 +1,73 @@
 package com.taras.hotelsitebev2.services;
 
+import com.taras.hotelsitebev2.converters.RBRoomDtoToRoom;
+import com.taras.hotelsitebev2.converters.RoomToRoomDto;
+import com.taras.hotelsitebev2.converters.RoomToRoomWithImagesDto;
 import com.taras.hotelsitebev2.dtos.DtoInterface;
 import com.taras.hotelsitebev2.dtos.roomdtos.RequestBodyRoomDto;
-import com.taras.hotelsitebev2.dtos.roomdtos.RoomDto;
-import com.taras.hotelsitebev2.dtos.roomdtos.RoomsDto;
-import com.taras.hotelsitebev2.dtos.roomdtos.RoomsItem;
 import com.taras.hotelsitebev2.exceptions.NotFoundException;
 import com.taras.hotelsitebev2.model.Room;
-import com.taras.hotelsitebev2.model.RoomImage;
 import com.taras.hotelsitebev2.repos.RoomRepo;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class RoomService implements ServiceInterface  {
 
     private final RoomRepo roomRepo;
-    private final RoomTypeService roomTypeService;
+    private final RoomToRoomDto roomToRoomDto;
+    private final RoomToRoomWithImagesDto roomToRoomWithImagesDto;
+    private final RBRoomDtoToRoom rbRoomDtoToRoom;
 
-    public RoomService(RoomRepo roomRepo, RoomTypeService roomTypeService) {
+    public RoomService(RoomRepo roomRepo, RoomToRoomDto roomToRoomDto, RoomToRoomWithImagesDto roomToRoomWithImagesDto,
+                       RBRoomDtoToRoom rbRoomDtoToRoom) {
         this.roomRepo = roomRepo;
-        this.roomTypeService = roomTypeService;
+        this.roomToRoomDto = roomToRoomDto;
+        this.roomToRoomWithImagesDto = roomToRoomWithImagesDto;
+        this.rbRoomDtoToRoom = rbRoomDtoToRoom;
     }
 
     @Override
-    public DtoInterface getList() {
-        ArrayList<Room> rooms = (ArrayList<Room>) roomRepo.findAll();
-        List<RoomsItem> roomsItems = new ArrayList<>();
-        //get the master image
-        String masterImageUrl = "";
-        for(Room room : rooms ){
-            Set<RoomImage> images = room.getRoomImages();
-            for(RoomImage image : images){
-                if(image.getDescription().equals("master")){
-                    masterImageUrl = image.getFilePath();
-                    break;
-                }
-            }
-            RoomsItem roomsItem = new RoomsItem(room.getId(), room.getName(), room.getBeds(), room.getMinPeople(),
-                    room.getMaxPeople(), room.getRoomType().getPricePerNight(), masterImageUrl);
-            roomsItems.add(roomsItem);
-        }
-        return new RoomsDto(roomsItems);
+    public Map<String, List<DtoInterface>> getList() {
+
+        List<DtoInterface> roomsItems;
+        Map <String, List<DtoInterface>> response = new HashMap<>();
+
+        roomsItems = StreamSupport.stream(roomRepo.findAll()
+                .spliterator(),false)
+                .map(roomToRoomDto::convert)
+                .collect(Collectors.toList());
+
+        response.put("rooms", roomsItems);
+        return response;
     }
 
     @Override
-    public DtoInterface getById(Integer id) {
+    public Map<String, DtoInterface> getById(Integer id) {
         Room room = roomRepo.findById(id).orElse(null);
         if (room == null) {
             throw new NotFoundException("Item no se encuentra - " + id);
         }
-        return new RoomDto(room);
+        Map<String, DtoInterface> response = new HashMap<>();
+        response.put("room", roomToRoomWithImagesDto.convert(room));
+        return response;
     }
 
     @Override
     public void save(DtoInterface dto) {
         RequestBodyRoomDto requestBodyRoomDto = (RequestBodyRoomDto) dto;
-        Room newRoom = new Room(requestBodyRoomDto.getName(), requestBodyRoomDto.getBeds(), requestBodyRoomDto.getMinPeople(),
-                requestBodyRoomDto.getMaxPeople(), requestBodyRoomDto.getDescription(),
-                requestBodyRoomDto.getRoomImages(), roomTypeService.getByName(requestBodyRoomDto.getRoomTypeName()) );
-        roomRepo.save(newRoom);
+        roomRepo.save(rbRoomDtoToRoom.convert(requestBodyRoomDto));
     }
 
     @Override
     public void update(Integer id, DtoInterface dto) {
         RequestBodyRoomDto requestBodyRoomDto = (RequestBodyRoomDto) dto;
-        Room updatedRoom = new Room(requestBodyRoomDto.getName(), requestBodyRoomDto.getBeds(), requestBodyRoomDto.getMinPeople(),
-                requestBodyRoomDto.getMaxPeople(), requestBodyRoomDto.getDescription(),
-                requestBodyRoomDto.getRoomImages(), roomTypeService.getByName(requestBodyRoomDto.getRoomTypeName()) );
+        Room updatedRoom = rbRoomDtoToRoom.convert(requestBodyRoomDto);
         Room updatingRoom = roomRepo.findById(id).orElse(null);
         if (updatingRoom == null){
             throw new NotFoundException("Item no se encuentra - " + id);

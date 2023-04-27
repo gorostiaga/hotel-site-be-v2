@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +16,9 @@ import java.util.Set;
 @Entity
 @Table(name = "payment_methods")
 public class PaymentMethod extends BaseEntity {
+
+    @Enumerated(value = EnumType.STRING)
+    private PaymentType paymentType;
 
     @OneToMany(mappedBy = "paymentMethod")
     private Set<Booking> bookings = new HashSet<>();

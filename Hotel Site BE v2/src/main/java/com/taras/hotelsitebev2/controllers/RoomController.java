@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-//TODO set the required annotation for mapping and controller
+
 @CrossOrigin
 @RequestMapping("/rooms")
 @RestController
