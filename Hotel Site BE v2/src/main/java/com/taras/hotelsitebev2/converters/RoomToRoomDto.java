@@ -1,6 +1,6 @@
 package com.taras.hotelsitebev2.converters;
 
-import com.taras.hotelsitebev2.dtos.roomdtos.RoomDto;
+import com.taras.hotelsitebev2.dtos.room.RoomDto;
 import com.taras.hotelsitebev2.model.Room;
 import com.taras.hotelsitebev2.model.RoomImage;
 import lombok.Synchronized;

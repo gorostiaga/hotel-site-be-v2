@@ -1,6 +1,6 @@
 package com.taras.hotelsitebev2.converters;
 
-import com.taras.hotelsitebev2.dtos.roomdtos.RoomWithImagesDto;
+import com.taras.hotelsitebev2.dtos.room.RoomWithImagesDto;
 import com.taras.hotelsitebev2.model.Room;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;

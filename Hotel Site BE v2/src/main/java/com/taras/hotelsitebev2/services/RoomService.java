@@ -4,7 +4,7 @@ import com.taras.hotelsitebev2.converters.RBRoomDtoToRoom;
 import com.taras.hotelsitebev2.converters.RoomToRoomDto;
 import com.taras.hotelsitebev2.converters.RoomToRoomWithImagesDto;
 import com.taras.hotelsitebev2.dtos.DtoInterface;
-import com.taras.hotelsitebev2.dtos.roomdtos.RequestBodyRoomDto;
+import com.taras.hotelsitebev2.dtos.room.RequestBodyRoomDto;
 import com.taras.hotelsitebev2.exceptions.NotFoundException;
 import com.taras.hotelsitebev2.model.Room;
 import com.taras.hotelsitebev2.repos.RoomRepo;

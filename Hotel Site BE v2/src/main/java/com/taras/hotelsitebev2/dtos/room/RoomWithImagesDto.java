@@ -1,4 +1,4 @@
-package com.taras.hotelsitebev2.dtos.roomdtos;
+package com.taras.hotelsitebev2.dtos.room;
 
 import com.taras.hotelsitebev2.dtos.DtoInterface;
 import com.taras.hotelsitebev2.model.Booking;

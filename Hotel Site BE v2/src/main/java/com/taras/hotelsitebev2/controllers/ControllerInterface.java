@@ -42,7 +42,7 @@ public abstract class ControllerInterface<T extends DtoInterface> {
     @PostMapping
     public ResponseEntity<DtoInterface> create(@RequestBody T dto) {
         serviceInterface.save(dto);
-        return new ResponseEntity<DtoInterface>(new ApiResponse(true, "Room created"), HttpStatus.OK);
+        return new ResponseEntity<DtoInterface>(new ApiResponse(true, "Entity created"), HttpStatus.OK);
     }
 
     //update an existing
@@ -54,7 +54,7 @@ public abstract class ControllerInterface<T extends DtoInterface> {
             //TODO fix this warming
             throw e;
         }
-        return new ResponseEntity<DtoInterface>(new ApiResponse(true, "Room updated"), HttpStatus.OK);
+        return new ResponseEntity<DtoInterface>(new ApiResponse(true, "Entity updated"), HttpStatus.OK);
     }
 
     //delete an existing
@@ -66,6 +66,6 @@ public abstract class ControllerInterface<T extends DtoInterface> {
             //TODO fix this warming
             throw e;
         }
-        return new ResponseEntity<DtoInterface>(new ApiResponse(true, "Room deleted"), HttpStatus.OK);
+        return new ResponseEntity<DtoInterface>(new ApiResponse(true, "Entity deleted"), HttpStatus.OK);
     }
 }
