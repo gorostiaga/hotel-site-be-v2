@@ -1,5 +1,6 @@
 package com.taras.hotelsitebev2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +36,9 @@ public class Customer {
     @Column(name = "origin_city")
     private String originCity;
 
-    @OneToMany(mappedBy = "customer")
+
     //TODO see if it is needed an earger fetch
+    @OneToMany(mappedBy = "customer")
+    @JsonIgnore
     private Set<Booking> bookings = new HashSet<>();
 }

@@ -1,5 +1,6 @@
 package com.taras.hotelsitebev2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,6 @@ public class PaymentMethod extends BaseEntity {
     private PaymentType paymentType;
 
     @OneToMany(mappedBy = "paymentMethod")
+    @JsonIgnore
     private Set<Booking> bookings = new HashSet<>();
 }

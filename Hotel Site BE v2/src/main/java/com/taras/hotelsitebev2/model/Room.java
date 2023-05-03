@@ -46,6 +46,7 @@ public class Room extends BaseEntity {
     private RoomType roomType;
 
     @OneToMany(mappedBy = "room")
+    @JsonIgnore
     private Set<Booking> bookings = new HashSet<>();
 
     public Room(String name, Integer beds, Integer minPeople, Integer maxPeople, String description, Set<RoomImage> roomImages, RoomType roomType) {

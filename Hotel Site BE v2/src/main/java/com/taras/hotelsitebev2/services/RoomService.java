@@ -87,4 +87,8 @@ public class RoomService implements ServiceInterface  {
     public void delete(Integer id) {
         roomRepo.deleteById(id);
     }
+
+    public Room getRoomById (Integer id) {
+        return roomRepo.findById(id).orElseThrow(()-> new NotFoundException("Habitacion no encontrada - " + id));
+    }
 }

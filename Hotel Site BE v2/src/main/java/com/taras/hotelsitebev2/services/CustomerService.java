@@ -88,7 +88,9 @@ public class CustomerService implements ServiceInterface{
         updatingCustomer.setPhone(updatedCustomer.getPhone());
         updatingCustomer.setOriginCity(updatedCustomer.getOriginCity());
         customerRepo.save(updatingCustomer);
+    }
 
-
+    public Customer getCustomerById (String id) {
+        return customerRepo.findById(id).orElseThrow(()-> new NotFoundException("Usuario no encontrado - " + id));
     }
 }

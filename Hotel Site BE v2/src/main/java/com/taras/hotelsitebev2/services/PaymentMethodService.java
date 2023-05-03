@@ -6,9 +6,11 @@ import com.taras.hotelsitebev2.dtos.DtoInterface;
 import com.taras.hotelsitebev2.dtos.paymentmethod.RequestBodyPaymentMethodDto;
 import com.taras.hotelsitebev2.exceptions.NotFoundException;
 import com.taras.hotelsitebev2.model.PaymentMethod;
+import com.taras.hotelsitebev2.model.PaymentType;
 import com.taras.hotelsitebev2.repos.PaymentMethodRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +76,15 @@ public class PaymentMethodService implements ServiceInterface {
         updatingPM.setPaymentType(updatedPM.getPaymentType());
 
         paymentMethodRepo.save(updatingPM);
+    }
 
+    public List<String> getPaymentTypes() {
+        return Arrays.stream(PaymentType.values())
+                .map(PaymentType::name)
+                .collect(Collectors.toList());
+    }
+
+    public PaymentMethod getPaymentMethodByType(PaymentType paymentType) {
+        return paymentMethodRepo.getPaymentMethodByPaymentType(paymentType).orElseThrow(()-> new NotFoundException("Metodo de pago no encontrado" + paymentType.name()));
     }
 }

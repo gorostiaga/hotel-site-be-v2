@@ -35,13 +35,14 @@ public class Booking extends BaseEntity {
     @Column(name = "paid_amount")
     private Double paidAmount;
 
-    @Column(name = "created_date")
-    private Date createdDate;
+    @Column(name = "creation_date")
+    private Date creationDate;
 
-    @Column(name = " modified_date")
-    private Date modifiedDate;
+    @Column(name = "modification_date")
+    private Date modificationDate;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "bookings_status")
     private BookingStatus bookingStatus;
 
     @ManyToOne
