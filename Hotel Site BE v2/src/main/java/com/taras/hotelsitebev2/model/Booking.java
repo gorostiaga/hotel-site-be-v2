@@ -55,4 +55,6 @@ public class Booking extends BaseEntity {
     @ManyToOne
     private PaymentMethod paymentMethod;
 
+    @OneToOne(mappedBy = "booking")
+    private QrPayment qrPayment;
 }

@@ -72,6 +72,13 @@ public class BookingService implements ServiceInterface {
             updatingBooking.setModificationDate(new Date());
             bookingRepo.save(updatingBooking);
         }
+        if(requestBodyBookingDto.getStatus().equals("booked")) {
+            Booking updatingBooking = bookingRepo.findById(id).orElseThrow(() -> new NotFoundException("Reserva no encontrada - " + id));
+            updatingBooking.setBookingStatus(BookingStatus.BOOKED);
+            updatingBooking.setModificationDate(new Date());
+            updatingBooking.setPaymentDate(new Date());
+            bookingRepo.save(updatingBooking);
+        }
     }
 
     private Long getNumberOfNights(LocalDate checkinDate, LocalDate checkoutDate) {

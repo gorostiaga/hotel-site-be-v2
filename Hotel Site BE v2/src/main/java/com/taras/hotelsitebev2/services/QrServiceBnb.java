@@ -30,10 +30,12 @@ public class QrServiceBnb implements QrServiceInterface{
 
     private final RestTemplate restTemplate;
     private final QrApiBnbDto qrApiBnbDto;
+    private final QrPaymentService qrPaymentService;
 
-    public QrServiceBnb(RestTemplate restTemplate, QrApiBnbDto qrApiBnbDto) {
+    public QrServiceBnb(RestTemplate restTemplate, QrApiBnbDto qrApiBnbDto, QrPaymentService qrPaymentService) {
         this.restTemplate = restTemplate;
         this.qrApiBnbDto = qrApiBnbDto;
+        this.qrPaymentService = qrPaymentService;
     }
 
     @Override
@@ -54,6 +56,10 @@ public class QrServiceBnb implements QrServiceInterface{
                     .path("/qrImages/")
                     .path(fileName)
                     .toUriString();
+
+            //create a new qr entity in the database
+            qrPaymentService.save(Double.valueOf(qrResponseBnb.getId()), bookingDto.getId());
+
             return imageUrl;
         } catch (IOException e) {
             e.printStackTrace();
@@ -87,6 +93,7 @@ public class QrServiceBnb implements QrServiceInterface{
         return response.getBody();
     }
 
+    //get the token
     private String getBearerToken (String account, String password) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
